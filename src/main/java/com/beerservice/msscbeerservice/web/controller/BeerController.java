@@ -3,11 +3,13 @@ package com.beerservice.msscbeerservice.web.controller;
 import com.beerservice.msscbeerservice.web.model.BeerDto;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
 
 @RestController
+@Validated
 @RequestMapping("/api/v1/beer")
 public class BeerController {
     @GetMapping("/{beerId}")
