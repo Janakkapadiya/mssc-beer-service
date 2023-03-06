@@ -1,5 +1,6 @@
 package com.beerservice.msscbeerservice.web.controller;
 
+import com.beerservice.msscbeerservice.domain.Beer;
 import com.beerservice.msscbeerservice.web.model.BeerDto;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,13 +20,12 @@ public class BeerController {
 
     @PostMapping
     public ResponseEntity saveNewBeer(@Validated @RequestBody BeerDto beerDto) {
-        // todo impl
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @PutMapping("/{beerId}")
     // todo impl
-    public ResponseEntity<?> updateBeerById(@RequestBody @Validated BeerDto beerDto,@PathVariable UUID beerId) {
-       return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    public ResponseEntity<?> updateBeerById(@RequestBody @Validated BeerDto beerDto, @PathVariable UUID beerId) {
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }
