@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.UUID;
 
 @RestController
-@Validated
 @RequestMapping("/api/v1/beer")
 public class BeerController {
     @GetMapping("/{beerId}")
@@ -19,14 +18,14 @@ public class BeerController {
     }
 
     @PostMapping
-    public ResponseEntity<?> saveNewBeer(@RequestBody BeerDto beerDto) {
+    public ResponseEntity saveNewBeer(@Validated @RequestBody BeerDto beerDto) {
         // todo impl
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @PutMapping("/{beerId}")
     // todo impl
-    public ResponseEntity<?> updateBeerById(@RequestBody BeerDto beerDto,@PathVariable UUID beerId) {
+    public ResponseEntity<?> updateBeerById(@RequestBody @Validated BeerDto beerDto,@PathVariable UUID beerId) {
        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }

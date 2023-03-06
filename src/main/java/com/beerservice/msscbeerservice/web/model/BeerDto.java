@@ -26,15 +26,15 @@ public class BeerDto {
     private OffsetDateTime createdDate;
     @Null
     private OffsetDateTime lastModifiedDate;
-    @NotBlank
+    @NotBlank(message = "beerName should not be blank")
     private String beerName;
-    @NotNull
+    @NotNull(message = "beerStyle should not be null")
     private BeerStyleEnum beerStyle;
-    @NotNull
+    @NotNull(message = "upc should not be null")
     @Positive
     private Long upc;
     @Positive
-    @NotNull
+    @NotNull(message = "prince should not be null")
     private BigDecimal price;
     private Integer quantityOnHand;
 }
