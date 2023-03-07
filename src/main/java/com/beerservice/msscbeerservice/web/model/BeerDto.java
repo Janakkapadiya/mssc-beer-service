@@ -24,10 +24,10 @@ public class BeerDto {
     @Null
     private Integer version;
     @Null
-    @JsonFormat(pattern = "dd-MM-yyyy`T`HH-mm-ssZ",shape = JsonFormat.Shape.STRING)
+    @JsonFormat(pattern = "dd-MM-yyyy'T'HH-mm-ssZ", shape = JsonFormat.Shape.STRING)
     private OffsetDateTime createdDate;
     @Null
-    @JsonFormat(pattern = "dd-MM-yyyy`T`HH-mm-ssZ",shape = JsonFormat.Shape.STRING)
+    @JsonFormat(pattern = "dd-MM-yyyy'T'HH-mm-ssZ", shape = JsonFormat.Shape.STRING)
     private OffsetDateTime lastModifiedDate;
     @NotBlank(message = "beerName should not be blank")
     private String beerName;
