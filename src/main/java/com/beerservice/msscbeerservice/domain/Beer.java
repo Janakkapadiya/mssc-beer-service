@@ -1,7 +1,6 @@
 package com.beerservice.msscbeerservice.domain;
 
 import lombok.*;
-import org.hibernate.annotations.CollectionId;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -19,8 +18,8 @@ import java.util.UUID;
 public class Beer {
     @Id
     @GeneratedValue(generator = "UUID")
-    @GenericGenerator(name = "UUID",strategy = "org.hibernate.id.UUIDGenerator")
-    @Column(nullable = false,updatable = false,length = 36,columnDefinition = "varchar")
+    @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
+    @Column(nullable = false, updatable = false, length = 36, columnDefinition = "varchar")
     private UUID io;
     @Version
     private Long version;

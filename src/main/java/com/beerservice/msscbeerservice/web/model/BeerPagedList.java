@@ -7,9 +7,13 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 
+import java.io.Serial;
 import java.util.List;
 
 public class BeerPagedList extends PageImpl<BeerDto> {
+    @Serial
+    private static final long serialVersionUID = 1896087620485810157L;
+
     @JsonCreator(mode = JsonCreator.Mode.PROPERTIES)
     public BeerPagedList(
             @JsonProperty("content") List<BeerDto> content,
