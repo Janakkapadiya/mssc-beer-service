@@ -20,7 +20,7 @@ public class Beer {
     @GeneratedValue(generator = "UUID")
     @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
     @Column(nullable = false, updatable = false, length = 36, columnDefinition = "varchar")
-    private UUID io;
+    private UUID id;
     @Version
     private Long version;
     @CreationTimestamp
