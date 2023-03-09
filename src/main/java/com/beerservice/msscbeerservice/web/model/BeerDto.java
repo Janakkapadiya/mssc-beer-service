@@ -35,7 +35,7 @@ public class BeerDto {
     private BeerStyleEnum beerStyle;
     @NotNull(message = "upc should not be null")
     @Positive
-    private Long upc;
+    private String upc;
     @Positive
     @NotNull(message = "prince should not be null")
     @JsonFormat(shape = JsonFormat.Shape.STRING)

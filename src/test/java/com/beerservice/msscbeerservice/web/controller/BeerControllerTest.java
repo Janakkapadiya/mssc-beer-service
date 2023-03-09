@@ -21,6 +21,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @WebMvcTest(BeerController.class)
 class BeerControllerTest {
+
+    public static final String BEER_1_UPC = "0631234200036";
     @Autowired
     MockMvc mockMvc;
     @Autowired
@@ -68,7 +70,7 @@ class BeerControllerTest {
         return BeerDto.builder()
                 .beerName("My Beer")
                 .beerStyle(BeerStyleEnum.IPA)
-                .upc(23213213213L)
+                .upc(BEER_1_UPC)
                 .price(new BigDecimal("2.99"))
                 .build();
     }

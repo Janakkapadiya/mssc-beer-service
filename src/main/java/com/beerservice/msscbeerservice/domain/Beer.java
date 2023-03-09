@@ -3,12 +3,14 @@ package com.beerservice.msscbeerservice.domain;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Type;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.UUID;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -19,7 +21,8 @@ public class Beer {
     @Id
     @GeneratedValue(generator = "UUID")
     @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
-    @Column(nullable = false, updatable = false, length = 36, columnDefinition = "varchar")
+    @Type(type="org.hibernate.type.UUIDCharType")
+    @Column(length = 36, columnDefinition = "varchar", nullable = false, updatable = false)
     private UUID id;
     @Version
     private Long version;
@@ -29,7 +32,7 @@ public class Beer {
     @UpdateTimestamp
     private Timestamp lastModifiedDate;
     private String beerStyle;
-    private Long upc;
+    private String upc;
     @Column(unique = true)
     private String beerName;
     private BigDecimal price;
