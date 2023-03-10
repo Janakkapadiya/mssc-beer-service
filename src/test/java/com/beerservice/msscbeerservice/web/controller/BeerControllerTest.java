@@ -15,6 +15,7 @@ import java.math.BigDecimal;
 import java.util.UUID;
 
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyBoolean;
 import static org.mockito.BDDMockito.given;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -34,7 +35,7 @@ class BeerControllerTest {
     @Test
     void getBearById() throws Exception {
 
-        given(beerService.getBeerById(any())).willReturn(getValidBeerDto());
+        given(beerService.getBeerById(any(),anyBoolean())).willReturn(getValidBeerDto());
 
         mockMvc.perform(get("/api/v1/beer/" + UUID.randomUUID()).accept(MediaType.APPLICATION_JSON)).andExpect(status().isOk());
     }
@@ -55,7 +56,7 @@ class BeerControllerTest {
     @Test
     void updateBeerById() throws Exception {
 
-        given(beerService.updateBeerById(any(),any())).willReturn(getValidBeerDto());
+        given(beerService.updateBeerById(any(), any())).willReturn(getValidBeerDto());
 
         BeerDto beerDto = getValidBeerDto();
         String beerDtoJson = objectMapper.writeValueAsString(beerDto);

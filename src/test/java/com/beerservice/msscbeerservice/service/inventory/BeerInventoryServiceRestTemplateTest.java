@@ -9,7 +9,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 @Disabled //utility for manual testing
 @SpringBootTest
-public class BeerInventoryServiceRestTemplateTest {
+class BeerInventoryServiceRestTemplateTest {
 
     @Autowired
     private BeerInventoryService beerInventoryService;
