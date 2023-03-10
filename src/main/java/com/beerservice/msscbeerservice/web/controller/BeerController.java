@@ -26,6 +26,7 @@ public class BeerController {
 
 
     @GetMapping(produces = {"application/json"})
+
     public ResponseEntity<BeerPagedList> listBeers(@RequestParam(value = "pageNumber", required = false) Integer pageNumber,
                                                    @RequestParam(value = "pageSize", required = false) Integer pageSize,
                                                    @RequestParam(value = "beerName", required = false) String beerName,
@@ -45,7 +46,6 @@ public class BeerController {
         }
 
         BeerPagedList beerList = beerService.listBeers(beerName, beerStyle, PageRequest.of(pageNumber, pageSize), showInventoryOnHand);
-
         return new ResponseEntity<>(beerList, HttpStatus.OK);
     }
 
