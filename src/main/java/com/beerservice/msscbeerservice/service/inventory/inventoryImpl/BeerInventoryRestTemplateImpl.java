@@ -41,6 +41,7 @@ public class BeerInventoryRestTemplateImpl implements BeerInventoryService {
                 .exchange(beerInventoryServiceHost + INVENTORY_PATH, HttpMethod.GET, null,
                         new ParameterizedTypeReference<List<BeerInventoryDto>>(){}, (Object) beerId);
 
+
         //sum from inventory list
         Integer onHand = Objects.requireNonNull(responseEntity.getBody())
                 .stream()

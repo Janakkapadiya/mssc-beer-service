@@ -69,11 +69,11 @@ public class BeerServiceImpl implements BeerService {
         System.out.println("i was called");
 
         if (!StringUtils.isEmpty(beerName) && !StringUtils.isEmpty(beerStyle)) {
-            beerPage = beerRepository.findAllByBeerNameAndBeerStyle(beerName, beerStyle, pageRequest);
+            beerPage = beerRepository.findAllByBeerNameAndBeerStyle(beerName, beerStyle.name(), pageRequest);
         } else if (!StringUtils.isEmpty(beerName) && StringUtils.isEmpty(beerStyle)) {
             beerPage = beerRepository.findAllByBeerName(beerName, pageRequest);
         } else if (StringUtils.isEmpty(beerName) && !StringUtils.isEmpty(beerStyle)) {
-            beerPage = beerRepository.findAllByBeerStyle(beerStyle, pageRequest);
+            beerPage = beerRepository.findAllByBeerStyle(beerStyle.name(), pageRequest);
         } else {
             beerPage = beerRepository.findAll(pageRequest);
         }
@@ -91,7 +91,6 @@ public class BeerServiceImpl implements BeerService {
                             beerPage.getPageable().getPageSize()),
                     beerPage.getTotalElements());
         }
-
 
         return beerPagedList;
     }
