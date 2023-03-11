@@ -66,6 +66,7 @@ public class BeerServiceImpl implements BeerService {
     public BeerPagedList listBeers(String beerName, BeerStyleEnum beerStyle, PageRequest pageRequest, Boolean showInventoryOnHand) {
         BeerPagedList beerPagedList;
         Page<Beer> beerPage;
+
         System.out.println("i was called");
 
         if (!StringUtils.isEmpty(beerName) && !StringUtils.isEmpty(beerStyle)) {
@@ -78,7 +79,7 @@ public class BeerServiceImpl implements BeerService {
             beerPage = beerRepository.findAll(pageRequest);
         }
 
-        if (Boolean.TRUE.equals(showInventoryOnHand)) {
+        if (showInventoryOnHand) {
             beerPagedList = new BeerPagedList(
                     beerPage.getContent().stream().map(beerMapper::beerToBeerDtoWithInventory).toList(),
                     PageRequest.of(beerPage.getPageable().getPageNumber(),

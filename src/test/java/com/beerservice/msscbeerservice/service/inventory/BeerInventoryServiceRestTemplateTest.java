@@ -18,7 +18,6 @@ class BeerInventoryServiceRestTemplateTest {
     void setUp() {
 
     }
-
     @Test
     void getOnHandInventory() {
       Integer qoh = beerInventoryService.getOnHandInventory(BeerLoader.BEER_1_UUID);
