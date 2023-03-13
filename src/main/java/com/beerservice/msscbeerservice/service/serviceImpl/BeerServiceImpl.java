@@ -79,7 +79,7 @@ public class BeerServiceImpl implements BeerService {
             beerPage = beerRepository.findAll(pageRequest);
         }
 
-        if (showInventoryOnHand) {
+        if (Boolean.TRUE.equals(showInventoryOnHand)) {
             beerPagedList = new BeerPagedList(
                     beerPage.getContent().stream().map(beerMapper::beerToBeerDtoWithInventory).toList(),
                     PageRequest.of(beerPage.getPageable().getPageNumber(),
