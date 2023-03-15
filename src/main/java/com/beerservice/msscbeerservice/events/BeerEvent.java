@@ -4,11 +4,11 @@ import com.beerservice.msscbeerservice.web.model.BeerDto;
 import lombok.*;
 
 import java.io.Serializable;
-
 @Data
-@RequiredArgsConstructor
+@AllArgsConstructor
 @Builder
+@NoArgsConstructor
 public class BeerEvent implements Serializable{
     static final long serialVersionUID = 3819979646887464924L;
-    private final BeerDto beerDto;
+    private BeerDto beerDto;
 }
