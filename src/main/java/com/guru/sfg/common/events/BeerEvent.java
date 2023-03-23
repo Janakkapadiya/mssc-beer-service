@@ -1,4 +1,4 @@
-package guru.sfg.common.events;
+package com.guru.sfg.common.events;
 
 import com.beerservice.msscbeerservice.web.model.BeerDto;
 import lombok.*;

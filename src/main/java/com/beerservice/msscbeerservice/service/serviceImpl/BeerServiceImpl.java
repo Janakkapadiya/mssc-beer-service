@@ -80,7 +80,7 @@ public class BeerServiceImpl implements BeerService {
         }
 
         beerPagedList = new BeerPagedList(
-                beerPage.getContent().stream().map(beer -> showInventoryOnHand ? beerMapper.beerToBeerDtoWithInventory(beer) : beerMapper.beerToBeerDto(beer)).toList(),
+                beerPage.getContent().stream().map(beer -> Boolean.TRUE.equals(showInventoryOnHand) ? beerMapper.beerToBeerDtoWithInventory(beer) : beerMapper.beerToBeerDto(beer)).toList(),
                 PageRequest.of(beerPage.getPageable().getPageNumber(),
                         beerPage.getPageable().getPageSize()),
                 beerPage.getTotalElements());
