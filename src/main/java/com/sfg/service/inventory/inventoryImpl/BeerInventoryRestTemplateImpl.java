@@ -3,6 +3,7 @@ package com.sfg.service.inventory.inventoryImpl;
 import com.sfg.service.inventory.BeerInventoryService;
 import com.sfg.web.model.beerInventory.BeerInventoryDto;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.annotation.Profile;
@@ -19,7 +20,7 @@ import java.util.UUID;
 @Component
 @Profile("!local-discovery")
 @Slf4j
-@ConfigurationProperties(prefix = "sfg.brewery", ignoreUnknownFields = false)
+@ConfigurationProperties(prefix = "sfg.brewery", ignoreUnknownFields = true)
 public class BeerInventoryRestTemplateImpl implements BeerInventoryService {
 
     public static final String INVENTORY_PATH = "/api/v1/beer/{beerId}/inventory";
@@ -30,8 +31,10 @@ public class BeerInventoryRestTemplateImpl implements BeerInventoryService {
         this.beerInventoryServiceHost = beerInventoryServiceHost;
     }
 
-    public BeerInventoryRestTemplateImpl(RestTemplateBuilder restTemplateBuilder) {
-        this.restTemplate = restTemplateBuilder.build();
+    public BeerInventoryRestTemplateImpl(RestTemplateBuilder restTemplateBuilder,
+                                         @Value("${sfg.brewery.inventory-username}") String inventoryPassword,
+                                         @Value("${sfg.brewery.inventory-password}") String inventoryUserName) {
+        this.restTemplate = restTemplateBuilder.basicAuthentication(inventoryUserName,inventoryPassword).build();
     }
 
 
