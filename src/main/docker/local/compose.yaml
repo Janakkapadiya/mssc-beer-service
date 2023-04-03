@@ -1,0 +1,97 @@
+version: '3.8'
+services:
+  jms:
+    image: vromero/activemq-artemis:latest
+    ports:
+      - "8161:8161"
+      - "61616:61616"
+  zipkin:
+    image: openzipkin/zipkin
+    ports:
+      - "9411:9411"
+  eureka:
+    image: janak8899/eureka-server
+    ports:
+      - "8761:8761"
+  config:
+    image: janak8899/mssc-config-server
+    ports:
+      - "8888:8888"
+    depends_on:
+      - eureka
+    environment:
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka:8761/eureka
+      EUREKA_INSTANCE_PREFER_ID_ADDRESS: true
+  inventory-service:
+    image: janak8899/mssc-beer-inventory-service
+    ports:
+      - "8082:8082"
+    depends_on:
+      - eureka
+      - jms
+      - config
+    environment:
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka:8761/eureka
+      SPRING_PROFILES_ACTIVE: localmysql,local-discovery
+      SPRING_ZIPKIN_BASEURL: http://zipkin
+      SPRING_ARTEMIS_HOST: jms
+      SPRING_DATASOURCE_URL: jdbc:mysql://172.17.0.1:3306/beerinventory?useUnicode=true&characterEncoding=UTF-8&serverTimeZone=UTC
+      EUREKA_INSTANCE_PREFER_ID_ADDRESS: true
+  inventory-failover:
+    image: janak8899/mssc-inventory-failover
+    ports:
+      - "8083:8083"
+    depends_on:
+      - eureka
+      - config
+    environment:
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka:8761/eureka
+      EUREKA_INSTANCE_PREFER_ID_ADDRESS: true
+  beer-service:
+    image: janak8899/mssc-beer-service
+    ports:
+      - "8080:8080"
+    depends_on:
+      - eureka
+      - config
+      - jms
+      - inventory-service
+    environment:
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka:8761/eureka
+      SPRING_PROFILES_ACTIVE: localmysql,local-discovery
+      SPRING_ZIPKIN_BASEURL: http://zipkin
+      SPRING_ARTEMIS_HOST: jms
+      SPRING_DATASOURCE_URL: jdbc:mysql://172.17.0.1:3306/beerservice?useUnicode=true&characterEncoding=UTF-8&serverTimeZone=UTC
+      EUREKA_INSTANCE_PREFER_ID_ADDRESS: true
+  order-service:
+    image: janak8899/mssc-beer-order-service
+    ports:
+      - "8081:8081"
+    depends_on:
+      - eureka
+      - config
+      - jms
+      - beer-service
+    environment:
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka:8761/eureka
+      SPRING_PROFILES_ACTIVE: localmysql,local-discovery
+      SPRING_ZIPKIN_BASEURL: http://zipkin
+      SPRING_ARTEMIS_HOST: jms
+      SPRING_DATASOURCE_URL: jdbc:mysql://172.17.0.1:3306/beerorder?useUnicode=true&characterEncoding=UTF-8&serverTimeZone=UTC
+      SFG_BREWERY_BEER-SERVICE-HOST: http://beer-service:8080
+      EUREKA_INSTANCE_PREFER_ID_ADDRESS: true
+  gateway:
+    image: janak8899/mssc-beer-gateway
+    ports:
+      - "9090:9090"
+    depends_on:
+      - eureka
+      - config
+      - inventory-service
+      - beer-service
+      - order-service
+      - inventory-failover
+    environment:
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka:8761/eureka
+      SPRING_PROFILES_ACTIVE: local-discovery
+      EUREKA_INSTANCE_PREFER_ID_ADDRESS: true
